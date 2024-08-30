@@ -1,0 +1,290 @@
+:root {
+    --Color1: #0099ff;
+    --Color2: rgba(255, 20, 145, 0.8);
+    --Color3: darkblue;
+}
+
+body {
+    position: relative;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    user-select: none;
+    align-items: center;
+    justify-content: center;
+    background-color: antiquewhite;
+}
+
+.AppMain-Layout {
+    position: relative;
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+    align-items: center;
+    justify-content: center;
+    background-color: lavender;
+}
+
+.AppMain-Layout::-webkit-scrollbar {
+    display: none;
+}
+
+.AppMain-Layout>svg {
+    position: absolute;
+    top: 0;
+    width: 120%;
+}
+
+.bg-BigCircle {
+    position: relative;
+    display: flex;
+    width: 340px;
+    height: 340px;
+    opacity: 0.7;
+    border-radius: 50%;
+    align-items: center;
+    box-shadow: 0 0 10px;
+    justify-content: center;
+    background-color: var(--Color3);
+    animation: self-rotate-animation 1s ease 1;
+}
+
+.bg-InnerCircle {
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    opacity: 0.5;
+    border-radius: 40%;
+    top: var(--OffsetY);
+    left: var(--OffsetX);
+    box-shadow: 0 0 10px;
+    background-color: var(--Color1);
+    animation: Bg-Circle-animation 1s ease 1;
+}
+
+.LandingPage-Containers {
+    position: relative;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    flex-direction: column;
+    width: min(600px, 90%);
+    justify-content: center;
+}
+
+.LandingPage-Container {
+    position: absolute;
+    display: flex;
+    height: 300px;
+    border-radius: 12px;
+    align-items: center;
+    transition: all 1.2s;
+    width: min(350px, 90%);
+    flex-direction: column;
+    font-family: sans-serif;
+    justify-content: center;
+}
+
+.LandingPage-Container>h1 {
+    color: darkslateblue;
+    font-size: clamp(1.6em, 4vw, 2em);
+}
+
+.LandingPage-Btns {
+    position: relative;
+    display: flex;
+    top: 40px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.LandingPage-Btns>button {
+    width: 80px;
+    height: 30px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    color: lavender;
+    font-weight: bold;
+    border-radius: 20px;
+    box-shadow: 0 0 8px black, inset 0 0 4px aliceblue;
+}
+
+.LandingPage-Btns>button:active {
+    transform: scale(0.9);
+}
+
+.Loading-Page {
+    position: absolute;
+    display: flex;
+    z-index: 120;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    background-color: rgba(240, 248, 255, 0.3);
+}
+
+.Loader {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 10px solid rgba(0, 0, 0, 0.2);
+    border-top: 10px solid turquoise;
+    animation: Loading-Animation 1s linear 40;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    background-color: rgba(240, 248, 255, 0.4);
+}
+
+.Loader+p {
+    margin-top: 20px;
+    margin-left: 30px;
+    font-weight: bold;
+    font-size: larger;
+    color: var(--Color3);
+}
+
+.this-Toast-Container {
+    position: absolute;
+    z-index: 200;
+}
+
+.Network-Page {
+    position: absolute;
+    display: flex;
+    z-index: 120;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    background-color: rgba(240, 248, 255, 0.3);
+}
+
+.Network-Container {
+    display: flex;
+    width: 300px;
+    height: 280px;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 16px;
+    align-items: center;
+    color: var(--Color3);
+    flex-direction: column;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 12px black;
+    background-color: rgba(240, 248, 255, 0.5);
+}
+
+.Network-Icons {
+    display: flex;
+    color: var(--Color2);
+}
+
+.Network-Icons:first-child {
+    padding: 10px;
+    font-size: 60px;
+    border-radius: 50%;
+    background-color: wheat;
+    border: 5px solid var(--Color3);
+}
+
+.Network-Icons:last-child {
+    cursor: pointer;
+    gap: 10px;
+    width: 80px;
+    height: 40px;
+    font-size: 24px;
+    border-radius: 12px;
+    align-items: center;
+    color: var(--Color3);
+    justify-content: center;
+    background-color: wheat;
+    border: 3px solid var(--Color3);
+}
+
+.Network-Icons:last-child:active{
+    transform: scale(0.95);
+}
+
+@media (width<=800px) {
+    .AppMain-Layout>svg {
+        width: 200%;
+    }
+}
+
+@media (width<=400px) {
+    body {
+        height: 100svh;
+    }
+
+    .AppMain-Layout {
+        background-size: 120vw 90vh;
+    }
+
+    .AppMain-Layout>svg {
+        width: 400%;
+    }
+}
+
+@keyframes fade-left-animation {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(50%);
+    }
+}
+
+@keyframes Input-section-fade-right {
+    0% {
+        transform: translateX(50%);
+    }
+}
+
+@keyframes Input-section-fade-left {
+    0% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes self-rotate-animation {
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes Bg-Circle-animation {
+    0% {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes zoom-in-up-animation {
+    0% {
+        opacity: 0.2;
+        transform: scale(0.2) translateY(120px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1.0) translateY(0px);
+    }
+}
+
+@keyframes Loading-Animation {
+    100% {
+        transform: rotate(360deg);
+    }
+}

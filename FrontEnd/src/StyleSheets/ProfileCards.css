@@ -1,0 +1,135 @@
+.ProfileCards-Container {
+    position: absolute;
+    display: grid;
+    top: 90px;
+    width: 100%;
+    height: 100%;
+    row-gap: 45px;
+    padding: 50px 0;
+    justify-items: center;
+    border-radius: 12px 12px 0 0;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.Back-ProfileCards{
+    position: relative;
+    display: flex;
+    top: 2px;
+    padding: 4px;
+    border-radius: 50%;
+    background-color: aliceblue;
+    box-shadow: 0 0 4px var(--Color3);
+}
+
+.Back-ProfileCards:active{
+    transform: scale(0.96);
+}
+
+.ProfileCards {
+    position: relative;
+    display: flex;
+    width: 320px;
+    height: 180px;
+    cursor: pointer;
+    align-items: end;
+    box-shadow: 0 0 20px;
+    justify-content: center;
+    border-radius: 20px 20px 6px 6px;
+    background-color: lavenderblush;
+    animation: zoom-in-up-animation 1s ease 1;
+}
+
+.ProfileCards:active{
+    transform: scale(0.96);
+}
+
+.Profile-Picture {
+    position: absolute;
+    display: flex;
+    top: -40px;
+    z-index: 1;
+    width: 98px;
+    height: 98px;
+    font-size: 65px;
+    overflow: hidden;
+    border: 3px solid;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    background-color: lavender;
+    box-shadow: -0.35px -4px 10px,
+        0 4px 4px lavender;
+}
+
+.Profile-Picture>img{
+    position: absolute;
+    top: 10px;
+    width: 94%;
+    height: 120%;
+    z-index: 100;
+    border-radius: 50%;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 10px #24186467);
+}
+
+.Profile-Contents {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+    height: min-content;
+    flex-direction: column;
+}
+
+.Profile-Contents>div {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 60px;
+    padding: 0 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 3px;
+    background-color: lavender;
+}
+
+.Profile-Contents>div:nth-child(1) {
+    flex-direction: column;
+    background-color: var(--Color1);
+}
+
+.Profile-Contents>div:nth-child(2) {
+    justify-content: space-between;
+    background-color: var(--Color2);
+}
+
+.Content-Field-Header{
+    font-weight: bold;
+    color: var(--Color3);
+}
+
+.Content-Field-Values {
+    position: absolute;
+    top: 30px;
+    font-weight: 500;
+}
+
+@media (width<=980px) {
+    .ProfileCards-Container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (width<=680px) {
+    .ProfileCards-Container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (width<=400px) {
+    .ProfileCards-Container {
+        top: 120px;
+    }
+
+    .ProfileCards {
+        width: 90%;
+    }
+}

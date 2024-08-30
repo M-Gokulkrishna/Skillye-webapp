@@ -1,0 +1,189 @@
+.DashBoard-Page {
+    position: relative;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-shadow: 2px 2px 12px aliceblue;
+}
+
+.DashBoard-NavBar{
+    position: absolute;
+    display: flex;
+    top: 0;
+    width: 96%;
+    z-index: 99;
+    height: 60px;
+    align-items: center;
+    border-radius: 12px;
+    justify-content: space-between;
+
+}
+
+.Logout-Icon,
+.Profile-Icon{
+    display: flex;
+    padding: 6px;
+    cursor: pointer;
+    font-size: 28px;
+    border-radius: 50%;
+    align-items: center;
+    box-shadow: 0 0 10px;
+    transform: rotate(-180deg);
+    background-color: aliceblue;
+}
+
+.Profile-Icon{
+    transform: none;
+}
+
+.Profile-Icon:active{
+    transform: scale(0.9);
+}
+
+.Logout-Icon:active{
+    transform: rotate(-180deg) scale(0.9);
+}
+
+.LogoutConfirmation-Page {
+    position: absolute;
+    display: flex;
+    z-index: 99;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.LogoutConfirmation-Container {
+    height: 100px;
+    font-size: large;
+    font-weight: bold;
+    padding: 10px 40px;
+    width: fit-content;
+    border-radius: 12px;
+    box-shadow: 0 0 10px;
+    background-color: aliceblue;
+}
+
+.LogoutConfirmation-Container>div {
+    display: flex;
+    width: 100%;
+    gap: 34px;
+    justify-content: space-around;
+}
+
+.LogoutConfirmation-Container>div>span {
+    width: 80px;
+}
+
+.NavBarInput-Container{
+    position: relative;
+    display: grid;
+    place-items: center;
+}
+
+.DropDown-Input{
+    position: absolute;
+    display: flex;
+    z-index: 99;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    min-height: 160px;
+    align-items: center;
+    transition: all 0.4s;
+    transform-origin: top;
+    flex-direction: column;
+    backdrop-filter: blur(4px);
+    justify-content: space-around;
+    border: 1.2px solid deeppink;
+    border-radius: 2px 2px 6px 6px;
+    background-color: rgba(240, 248, 255, 0.9);
+}
+
+.DropDown-Filter{
+    cursor: pointer;
+    width: 80%;
+    padding: 6px 0;
+    border-radius: 8px;
+    text-align: center;
+    color: var(--Color1);
+    backdrop-filter: blur(2px);
+    box-shadow: 0 0 2px var(--Color3);
+}
+
+.DropDown-Filter:active,
+.ArrowUp-Filter-Input:active,
+.Filter-Input:active{
+    transform: scale(0.96);
+}
+
+.Filter-Input,
+.Search-Input{
+    position: absolute;
+    display: flex;
+    z-index: 99;
+    width: 32px;
+    height: 38px;
+    font-size: 22px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--Color2);
+}
+
+.Filter-Input{
+    top: 70%;
+    z-index: 1;
+    width: 48px;
+    align-items: end;
+    border-radius: 50%;
+    padding-bottom: 4px;
+    box-shadow: 0 0 4px;
+}
+
+.ArrowUp-Filter-Input{
+    display: flex;
+    z-index: 99;
+    width: 30px;
+    height: 30px;
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 2px;
+    box-shadow: 0 0 4px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--Color2);
+}
+
+.Search-Input{
+    right: 0;
+    border-radius: 2px 6px 6px 2px;
+    background-color: deepskyblue;
+}
+
+#SearchInput{
+    all: unset;
+    z-index: 1;
+    width: 244px;
+    height: 38px;
+    font-size: 18px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px;
+    padding-inline-start: 6px;
+    background-color: lavender;
+}
+
+@media (width<=400px) {
+    #SearchInput{
+        width: 180px;
+    }
+
+    .DashBoard-NavBar{
+        top: 6%;
+    }
+}

@@ -1,0 +1,267 @@
+.Profile-Card,
+.Profile-Card1 {
+    position: absolute;
+    display: flex;
+    top: 135px;
+    z-index: 2;
+    margin-left: 8px;
+    min-height: 442px;
+    border: 2px solid;
+    border-radius: 18px;
+    align-items: center;
+    padding-bottom: 4px;
+    justify-content: end;
+    box-shadow: 0 0 20px;
+    flex-direction: column;
+    border-right: 6px solid;
+    border-bottom: 6px solid;
+    max-width: min(400px, 96%);
+    background-color: lavender;
+}
+
+.Profile-Card1 {
+    top: 50px;
+}
+
+.Profile-Card>svg,
+.Profile-Card1>svg {
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    border-radius: 12px;
+}
+
+.Profile-Image {
+    position: absolute;
+    display: flex;
+    top: -60px;
+    width: 110px;
+    height: 110px;
+    font-size: 70px;
+    overflow: hidden;
+    border: 3px solid;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    background-color: lavender;
+    box-shadow: -0.35px -4px 10px,
+        0 4px 4px lavender;
+}
+
+.Profile-Image>img {
+    position: absolute;
+    top: 10px;
+    width: 94%;
+    height: 120%;
+    z-index: 100;
+    border-radius: 50%;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 10px #24186467);
+}
+
+.Profile-Content {
+    display: grid;
+    width: 100%;
+    row-gap: 20px;
+    padding: 0 6px;
+    grid-template-areas:
+        "Profile_Edit_Field Profile_Edit_Field Profile_Edit_Field"
+        "Name_Age_Field Name_Age_Field Name_Age_Field"
+        "Professional_Field Professional_Field Professional_Field"
+        "Email_Field Email_Field SocialLinks_Field"
+        "About_Field About_Field SocialLinks_Field"
+        "About_Field About_Field SocialLinks_Field";
+}
+
+.Profile-Edit-Field {
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    margin: 6px 8px 0 8px;
+    grid-area: Profile_Edit_Field;
+    justify-content: space-between;
+}
+
+.Name-Age-Field {
+    display: flex;
+    width: 100%;
+    height: 60px;
+    align-items: center;
+    min-height: max-content;
+    grid-area: Name_Age_Field;
+    overflow-wrap: break-word;
+    justify-content: space-between;
+}
+
+.Professional-Field {
+    display: flex;
+    width: 100%;
+    height: 60px;
+    align-items: center;
+    overflow-wrap: break-word;
+    grid-area: Professional_Field;
+    justify-content: space-between;
+}
+
+.Email-Field {
+    display: flex;
+    width: 100%;
+    height: 60px;
+    align-items: center;
+    grid-area: Email_Field;
+    overflow-wrap: break-word;
+}
+
+.Social-Links-Field {
+    display: flex;
+    width: 94px;
+    margin-left: 10px;
+    border-radius: 6px;
+    align-items: center;
+    grid-area: SocialLinks_Field;
+    background-color: var(--Color2);
+}
+
+.About-Field {
+    display: flex;
+    width: 100%;
+    height: 140px;
+    overflow: auto;
+    border-radius: 12px;
+    text-align: justify;
+    grid-area: About_Field;
+    overflow-wrap: break-word;
+}
+
+.Profile-Edit-Field>div {
+    display: flex;
+    gap: 6px;
+    margin: 0 4px;
+    cursor: pointer;
+    font-size: 20px;
+    align-items: center;
+    color: var(--Color3);
+}
+
+.Name-Age-Field>div:first-child,
+.Professional-Field>div:first-child {
+    width: 60%;
+    height: 60px;
+    border-radius: 12px;
+    padding-inline: 6px;
+    background-color: var(--Color1);
+}
+
+.Professional-Field>div:first-child {
+    background-color: var(--Color2);
+}
+
+.Name-Age-Field>div:last-child,
+.Professional-Field>div:last-child {
+    width: 35%;
+    height: 60px;
+    border-radius: 12px;
+    padding-inline: 6px;
+    background-color: var(--Color2);
+}
+
+.Professional-Field>div:last-child {
+    background-color: var(--Color1);
+}
+
+.Email-Field>div {
+    width: 100%;
+    height: 60px;
+    border-radius: 12px;
+    padding-inline: 6px;
+    background-color: var(--Color1);
+}
+
+.About-Field>div {
+    width: 100%;
+    height: min-content;
+    padding-inline: 6px;
+    overflow-wrap: anywhere;
+    background-color: var(--Color1);
+    border-radius: 12px 4px 4px 12px;
+}
+
+.About-Field::-webkit-scrollbar {
+    width: 10px;
+}
+
+.About-Field::-webkit-scrollbar-thumb {
+    width: 10px;
+    border-radius: 4px;
+    background-color: var(--Color2);
+}
+
+.Social-Links-Field>div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 2px 0;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.Text-Header {
+    color: var(--Color3);
+}
+
+.Field-Value {
+    margin-top: 8px;
+    font: 13px sans-serif;
+    transform: scaleY(1.2);
+}
+
+.Social-Icons {
+    position: relative;
+    display: flex;
+    padding: 6px;
+    font-size: 20px;
+    border-radius: 50%;
+    color: var(--Color3);
+    box-shadow: 0 0 8px black,
+        inset 0 0 2px rgba(0, 0, 0, 0.4);
+    background-color: antiquewhite;
+}
+
+.Social-Icons>a {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.Resume-Btn>span {
+    font-size: 16px;
+}
+
+.Resume-Btn>a {
+    display: none;
+    text-decoration: none;
+}
+
+.Resume-Btn>span:hover {
+    transform: scale(1.1);
+}
+
+@media (width<=400px) {
+    :root {
+        --Color1: #0099fff5;
+        --Color2: rgba(255, 20, 145, 0.7);
+    }
+
+    .Profile-Card,
+    .Profile-Card1 {
+        top: 68px;
+    }
+
+    .Profile-Image {
+        width: 102px;
+        height: 102px;
+    }
+}

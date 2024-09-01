@@ -27,6 +27,11 @@ const UserDetailSchema = new Schema({
         required: true,
         trim: true
     },
+    ViewProfile: {
+        type: String,
+        required: true,
+        default: 'Public'
+    },
     ImageFileName: {
         type: String,
         required: true

@@ -3,7 +3,7 @@ import '../StyleSheets/ProfileCards.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
-import { FaArrowLeft, FaEnvelope, FaGithub, FaGlobe, FaInstagram, FaLinkedin, FaUser } from 'react-icons/fa';
+import { FaArrowLeft, FaEnvelope, FaGithub, FaGlobe, FaInstagram, FaLinkedin, FaThumbtack, FaUser } from 'react-icons/fa';
 
 const ProfileCards = () => {
     const NavigateTo = useNavigate();
@@ -68,7 +68,7 @@ const ProfileCards = () => {
     }
     // 
     async function FileDownload(userFileURL) {
-        if(AnchorTagFlag) return;
+        if (AnchorTagFlag) return;
         setAnchorTagFlag(true);
         try {
             const DownloadResponse = await axios.post('http://localhost:8080/ProfileDetails/userResumeDownload', { userFileURL },
@@ -85,13 +85,20 @@ const ProfileCards = () => {
         } catch (error) {
             console.log(error)
         }
-        finally{
+        finally {
             setAnchorTagFlag(false);
         }
     }
     // 
     const AllCards = filteredUsers?.map((each, index) => (
+        each.ViewProfile === 'Public' &&
         <div className='ProfileCards' key={index} onClick={() => handleCardClick(index)}>
+            {/* <div>
+                <div className='d-flex'>
+                    <FaThumbtack />
+                </div>
+                <span>Pinned</span>
+            </div> */}
             <div className='Profile-Picture'>
                 {each?.ImageFileName === '' && <FaUser />}
                 {each?.ImageFileName &&

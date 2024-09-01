@@ -13,6 +13,7 @@ router.post('/InsertAndUpdate', async (request, response) => {
         Experience: DetailsFormData.ExperienceField,
         Email: DetailsFormData.EmailField,
         About: DetailsFormData.AboutField,
+        ViewProfile: (DetailsFormData.VisibilityField) ? 'Private' : 'Public',
         ImageFileName: FileNames.ImageFileName,
         PdfFileName: FileNames.ResumeFileName,
         SocialLinks: {
@@ -51,8 +52,8 @@ router.get('/ViewAllUser', async (_, response) => {
 // Get Specific User Details
 router.post('/UsersDetailView', async (request, response) => {
     const { WhichUserEmail } = request.body;
-    const WhichUserDetail = await DetailsModel.findOne({Email: WhichUserEmail});
-    if(WhichUserDetail){
+    const WhichUserDetail = await DetailsModel.findOne({ Email: WhichUserEmail });
+    if (WhichUserDetail) {
         return response.status(200).send(WhichUserDetail);
     }
     return response.status(404).send('UserDetail Not Found!');

@@ -180,18 +180,18 @@ const LoginSignup = () => {
                 {
                     ScreenWidth <= 480
                     &&
-                    <div className='FormChange-Btn' style={(ChangeForm) ? { backgroundColor: '#ff3366' } : {}} onClick={() => setChangeForm(!ChangeForm)}>
+                    <div className='FormChange-Btn' style={(ChangeForm) ? {  } : {backgroundColor: '#ff3366'}} onClick={() => setChangeForm(!ChangeForm)}>
                         {
                             !ChangeForm &&
                             <div>
-                                <span className='me-2'>Login</span>
+                                <span className='me-2'>Signup</span>
                                 <FaArrowRight />
                             </div>
                         }
                         {
                             ChangeForm &&
                             <div>
-                                <span className='me-2'>Signup</span>
+                                <span className='me-2'>Login</span>
                                 <FaArrowRight />
                             </div>
                         }

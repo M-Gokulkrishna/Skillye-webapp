@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToast } from '../ReduxStates/ToastState.js';
 import { setLoaderState } from '../ReduxStates/loadingFlagState';
+// 
 const DetailsForm = () => {
     const InitialFormDetails = {
         NameField: '',
@@ -18,11 +19,13 @@ const DetailsForm = () => {
         WebsiteField: '',
         InstagramField: '',
         AboutField: '',
+        VisibilityField: false
     }
     const FileNames = {
         ImageFileName: '',
         ResumeFileName: ''
     }
+    // 
     const NavigateTo = useNavigate();
     const DispatchToastState = useDispatch();
     const DispatchLoadingState = useDispatch();
@@ -38,6 +41,14 @@ const DetailsForm = () => {
             setScreenWidth(window.innerWidth);
         })
     }, []);
+    // 
+    function handleFormInput(e) {
+        setDetailsFormData(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
+    }
+    // 
+    function handleVisibilityInput(e) {
+        setDetailsFormData(prevState => ({ ...prevState, [e.target.name]: e.target.checked }));
+    }
     // 
     function getImage(e) {
         setImageFile(e.target.files[0]);
@@ -151,10 +162,6 @@ const DetailsForm = () => {
         }
     }
     // 
-    function handleFormInput(e) {
-        setDetailsFormData(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
-    }
-    // 
     return (
         <div className='Profile-Update-Page'>
             <div className='Back-to-Home-Icon mx-2' onClick={() => NavigateTo('/DashBoard/ProfileCards')}>
@@ -168,9 +175,9 @@ const DetailsForm = () => {
                 </svg>
                 <div className={`Input-Section Section1 ${FormCounter === 1 ? 'section-active' : ''}`}>
                     <label htmlFor="NameField">Name</label>
-                    <input type="text" name="NameField" id="NameField" placeholder='Enter Your Name' value={DetailsFormData.NameField} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Name-DetailsForm')? {border: '2.2px solid #ff3366'}: null}/>
+                    <input type="text" name="NameField" id="NameField" placeholder='Enter Your Name' value={DetailsFormData.NameField} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Name-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} />
                     <label htmlFor="AgeField">Age</label>
-                    <input type="number" name="AgeField" id="AgeField" placeholder='Enter Your Age' value={DetailsFormData.AgeField} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Age-DetailsForm')? {border: '2.2px solid #ff3366'}: null}/>
+                    <input type="number" name="AgeField" id="AgeField" placeholder='Enter Your Age' value={DetailsFormData.AgeField} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Age-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} />
                     {
                         ScreenWidth <= 680 &&
                         <>
@@ -180,9 +187,9 @@ const DetailsForm = () => {
                 </div>
                 <div className={`Input-Section Section2 ${FormCounter === 2 ? 'section-active' : ''}`}>
                     <label htmlFor="SkillField">Skills</label>
-                    <input type="text" name="SkillField" id="SkillField" placeholder='Enter Your Skill' value={DetailsFormData.SkillField} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Skills-DetailsForm')? {border: '2.2px solid #ff3366'}: null}/>
+                    <input type="text" name="SkillField" id="SkillField" placeholder='Enter Your Skill' value={DetailsFormData.SkillField} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Skills-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} />
                     <label htmlFor="ExperienceField">Experience</label>
-                    <input type="number" name="ExperienceField" id="ExperienceField" placeholder='Enter Experience' value={DetailsFormData.ExperienceField} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Experience-DetailsForm')? {border: '2.2px solid #ff3366'}: null}/>
+                    <input type="number" name="ExperienceField" id="ExperienceField" placeholder='Enter Experience' value={DetailsFormData.ExperienceField} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Experience-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} />
                     {
                         ScreenWidth <= 680 &&
                         <>
@@ -196,10 +203,10 @@ const DetailsForm = () => {
                 <div className={`Input-Section Section3 ${FormCounter === 4 ? 'section-active' : ''}`}>
                     <span>File Upload</span>
                     <div className='File-Label-Container'>
-                        <label htmlFor="ImageField" style={(showErrorResponse === 'Image-DetailsForm')? {border: '2.2px solid #ff3366'}: null}>
+                        <label htmlFor="ImageField" style={(showErrorResponse === 'Image-DetailsForm') ? { border: '2.2px solid #ff3366' } : null}>
                             Upload Your <br /> Image
                         </label>
-                        <label htmlFor="PdfField" style={(showErrorResponse === 'Pdf-DetailsForm')? {border: '2.2px solid #ff3366'}: null}>
+                        <label htmlFor="PdfField" style={(showErrorResponse === 'Pdf-DetailsForm') ? { border: '2.2px solid #ff3366' } : null}>
                             Upload Your <br /> Resume
                         </label>
                     </div>
@@ -234,7 +241,13 @@ const DetailsForm = () => {
                 </div>
                 <div className={`Input-Section Section5 ${FormCounter === 5 ? 'section-active' : ''}`}>
                     <label htmlFor="AboutField">About</label>
-                    <textarea name="AboutField" id="AboutField" placeholder='Write about yourself...' value={DetailsFormData.AboutField} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'About-DetailsForm')? {border: '2.2px solid #ff3366'}: null}></textarea>
+                    <div>
+                        <span className='VisibilityBtn-text'>Do you want to make your profile private</span>
+                        <input type="checkbox" name="VisibilityField" id="VisibilityField" onChange={(e) => handleVisibilityInput(e)} defaultChecked={DetailsFormData.VisibilityField} />
+                        <span className='VisibilityFlag-text'>{(DetailsFormData.VisibilityField)?"On":"Off"}</span>
+                        <label htmlFor="VisibilityField"></label>
+                    </div>
+                    <textarea name="AboutField" id="AboutField" placeholder='Write about yourself...' value={DetailsFormData.AboutField} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'About-DetailsForm') ? { border: '2.2px solid #ff3366' } : null}></textarea>
                     <input type="submit" value="Submit" />
                 </div>
             </form>

@@ -21,6 +21,9 @@ function App() {
     Aos.init({
       duration: 900,
     });
+    // window.addEventListener('contextmenu', (e)=>{
+    //   e.preventDefault();
+    // });
   }, []);
   // 
   function checkNetwork() {

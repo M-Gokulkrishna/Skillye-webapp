@@ -116,6 +116,10 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
 }
 
+.LoginSignup-Container input[type='submit']:active{
+    transform: scale(0.95);
+}
+
 .Login-Container input[type='submit']{
     bottom: 44px;
 }

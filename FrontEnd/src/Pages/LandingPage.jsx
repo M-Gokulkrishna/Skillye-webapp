@@ -17,7 +17,7 @@ const LandingPage = () => {
         if (VerifyAccessToken.data) {
           localStorage.setItem('UserAccessToken', VerifyAccessToken.data?.RefreshToken)
           setTimeout(() => {
-            if (VerifyAccessToken.data?.VerifiedUser?.isProfileUpdated) {
+            if (VerifyAccessToken.data?.VerifiedUser?.isProfileUpdated && navigator.onLine) {
               NavigateTo('/DashBoard/ProfileCards');
             }
           }, 1010);

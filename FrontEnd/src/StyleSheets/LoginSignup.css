@@ -6,6 +6,7 @@
     box-shadow: 0 0 10px;
     width: min(580px, 92%);
     justify-content: center;
+    background: linear-gradient(to bottom, deepskyblue, #ff336697);
 }
 
 .Login-Container,
@@ -14,12 +15,16 @@
     display: flex;
     width: 50%;
     height: 100%;
-    border-radius: 12px;
     align-items: center;
     color: var(--Color3);
     justify-content: center;
     backdrop-filter: blur(4px);
-    background-color: rgba(240, 248, 255, 0.3);
+    border-radius: 12px 12px 0 12px;
+    background: linear-gradient(to bottom, deepskyblue, #ff336697);
+}
+
+.Signup-Container{
+    border-radius: 12px 12px 12px 0;
 }
 
 .Login-Container h3,
@@ -30,7 +35,7 @@
 }
 
 .Login-Container h3{
-    top: 80px;
+    top: 86px;
 }
 
 .Back-to-Home-Icon {
@@ -43,8 +48,8 @@
     padding: 5px;
     font-size: 24px;
     border-radius: 50%;
-    background-color: springgreen;
-    box-shadow: 0 0 4px var(--Color3);
+    box-shadow: 0 0 6px var(--Color3);
+    background-color: rgba(220, 210, 245, 0.9);
 }
 
 .FormChange-Btn{
@@ -57,7 +62,7 @@
     height: 35px;
     font-weight: bold;
     color: aliceblue;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: var(--Color1);
     box-shadow: 0 0 4px var(--Color3);
 }
@@ -74,16 +79,12 @@
 .Signup-Container>form {
     position: relative;
     display: flex;
-    gap: 40px;
+    gap: 35px;
     width: 100%;
     height: 100%;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-}
-
-.Login-Container>form{
-    gap: 50px;
 }
 
 .LoginSignup-Container input[type='text'],
@@ -98,22 +99,23 @@
     border-radius: 6px;
     box-shadow: 0 0 5px;
     padding-inline-start: 8px;
-    background-color: lavenderblush;
+    background-color: rgba(255, 240, 245, 0.94);
 }
 
 .LoginSignup-Container input[type='submit'] {
     all: unset;
     position: absolute;
     display: flex;
-    bottom: 26px;
+    bottom: 30px;
     width: 100px;
     height: 36px;
     cursor: pointer;
-    color: aliceblue;
     font-weight: 500;
     text-align: center;
+    color: aliceblue;
     border-radius: 12px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+    background-color: #ff3366c4;
 }
 
 .LoginSignup-Container input[type='submit']:active{
@@ -121,7 +123,7 @@
 }
 
 .Login-Container input[type='submit']{
-    bottom: 44px;
+    bottom: 40px;
 }
 
 .FormActive{
@@ -166,6 +168,26 @@
     transform: translate(-50%, -50%);
 }
 
+.Forgot-Password-btn{
+    position: absolute;
+    font-size: 12px;
+    bottom: 108px;
+    left: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--Color3);
+    transform: scaleY(1.2);
+}
+
+.Cancel-ForgotPass-Window{
+    position: absolute;
+    cursor: pointer;
+    top: 20px;
+    right: 10px;
+    display: flex;
+    font-size: 26px;
+}
+
 @media (width<=480px) {
 
     .Login-Container,
@@ -185,5 +207,15 @@
     .FormActive{
         z-index: 98;
         visibility: visible;
+    }
+
+    .Forgot-Password-btn{
+        left: 14%;
+    }
+}
+
+@media (width<=380px) {
+    .Forgot-Password-btn{
+        left: 12px;
     }
 }

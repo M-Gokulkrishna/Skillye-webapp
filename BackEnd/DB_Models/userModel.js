@@ -17,6 +17,10 @@ const userSchema = new Schema({
     isProfileUpdated: {
         type: Boolean,
         default: false
+    },
+    verificationCode: {
+        type: Number,
+        default: 0
     }
 });
 // UserModel based on userSchema 

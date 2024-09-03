@@ -25,6 +25,7 @@ const LandingPage = () => {
       }
     }
   }, []);
+  // 
   return (
     <div className="LandingPage-Containers">
       <div className='bg-BigCircle'>

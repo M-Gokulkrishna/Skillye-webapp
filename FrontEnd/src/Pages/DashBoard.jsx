@@ -1,3 +1,4 @@
+import axios from 'axios';
 import '../StyleSheets/DashBoard.css';
 import { useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
@@ -19,14 +20,23 @@ const DashBoard = () => {
       NavigateTo('/DashBoard/Profile');
     }
     else {
-      if (localStorage.getItem('UserAccessToken')) {
-        NavigateTo('/DashBoard/ProfileCards');
-      }
+      NavigateTo('/DashBoard/ProfileCards');
     }
   }, [ProfileClickFlag]);
   // 
   function handleSearchInput(e) {
     setSearchInputValue(e.target.value);
+  }
+  // 
+  async function handleLogout() {
+    try {
+      const LogoutResponse = await axios.get('http://localhost:8080/Logout', { withCredentials: true });
+      if (LogoutResponse?.data === 'Logout Successfully!') {
+        NavigateTo('/LoginSignup');
+      }
+    } catch (error) {
+      // pass
+    }
   }
   return (
     <div className='DashBoard-Page'>
@@ -67,10 +77,7 @@ const DashBoard = () => {
           <div className='LogoutConfirmation-Container'>
             <p>Are you sure to LogOut</p>
             <div>
-              <span className='btn btn-primary' onClick={() => {
-                localStorage.removeItem('UserAccessToken');
-                NavigateTo('/LoginSignup');
-              }}>Ok</span>
+              <span className='btn btn-primary' onClick={() => { handleLogout() }}>Ok</span>
               <span className='btn btn-danger' onClick={() => setLogoutFlag(false)}>Cancel</span>
             </div>
           </div>

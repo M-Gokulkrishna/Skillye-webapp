@@ -9,21 +9,17 @@ const ProfileCard = () => {
     const AnchorTagRef = useRef(null);
     const [AnchorTagFlag, setAnchorTagFlag] = useState(false);
     const [ProfileDetails, setProfileDetails] = useState({});
-    const AccessToken = localStorage.getItem('UserAccessToken') || undefined;
     // 
     useEffect(() => {
-        if (AccessToken) {
-            return async () => {
-                const VerifyAccessToken = await axios.get('http://localhost:8080/VerifyToken', {
-                    headers: {
-                        'Authorization': `Bearer ${AccessToken}`
-                    }
-                });
+        return async () => {
+            try {
+                const VerifyAccessToken = await axios.get('http://localhost:8080/VerifyToken', { withCredentials: true });
                 if (VerifyAccessToken.data) {
-                    localStorage.setItem('UserAccessToken', VerifyAccessToken.data?.RefreshToken)
                     const ViewProfileResponse = await axios.post('http://localhost:8080/ProfileDetails/ViewProfile', { UserEmail: VerifyAccessToken.data?.VerifiedUser?.Email });
                     setProfileDetails(ViewProfileResponse.data);
                 }
+            } catch (error) {
+                // pass
             }
         }
     }, []);

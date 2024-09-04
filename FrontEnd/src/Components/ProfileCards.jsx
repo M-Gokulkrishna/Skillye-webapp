@@ -13,7 +13,6 @@ const ProfileCards = () => {
     const [ProfileDetails, setProfileDetails] = useState({});
     const [AnchorTagFlag, setAnchorTagFlag] = useState(false);
     const [detailCardView, setDetailCardView] = useState(false);
-    const AccessToken = localStorage.getItem('UserAccessToken') || undefined;
     const getInputValue = useSelector((state) => state.searchInputValue.SearchValue);
     // Searching the users
     useEffect(() => {
@@ -28,19 +27,14 @@ const ProfileCards = () => {
     }, [getInputValue]);
     // Check Authorized User by Verifying user token 
     useEffect(() => {
-        if (!AccessToken) {
-            NavigateTo('/LoginSignup');
-        }
-        else {
-            return async () => {
-                const TokenVerificationResponse = await axios.get('http://localhost:8080/VerifyToken', {
-                    headers: {
-                        'Authorization': `Bearer ${AccessToken}`
-                    }
-                });
+        return async () => {
+            try {
+                const TokenVerificationResponse = await axios.get('http://localhost:8080/VerifyToken', { withCredentials: true });
                 if (!TokenVerificationResponse?.data?.VerifiedUser) {
                     NavigateTo('/LoginSignup');
                 }
+            } catch (error) {
+                // pass
             }
         }
     }, [])

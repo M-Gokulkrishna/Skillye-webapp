@@ -33,18 +33,36 @@ router.post('/Login', async (request, response) => {
             return response.status(401).send("InValid Password!");
         }
         const JwtSignedToken = jwt.sign({ Name: getUser.Name, Email: UserEmail, isProfileUpdated: getUser.isProfileUpdated }, process.env.JWT_SECRET_KEY);
+        response.cookie('_UAID', JwtSignedToken, {
+            signed: true,
+            secure: false,
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60
+        })
         return response.status(200).json({
-            SignedToken: JwtSignedToken,
             isProfileUpdated: getUser?.isProfileUpdated,
             Message: "Logged In!"
         });
     }
 });
+// Logout 
+router.get('/Logout', async(request, response)=>{
+    if(request.signedCookies._UAID){
+        response.clearCookie('_UAID', {
+            httpOnly: true,
+            signed: true,
+            secure: false
+        });
+        return response.status(200).send('Logout Successfully!');
+    }
+    return response.status(400).send('UnAuthorized user Token!');
+});
 // Verify Jwt Token Access (Protected Route)
 router.get('/VerifyToken', VerifyToken, async (request, response) => {
-    const RefreshJwtToken = jwt.sign({ Name: request.VerifiedUser.Name, Email: request.VerifiedUser.Email, isProfileUpdated: true }, process.env.JWT_SECRET_KEY);
-    response.status(200).json({ VerifiedUser: request.VerifiedUser, RefreshToken: RefreshJwtToken });
-});
+    if(request.signedCookies._UAID){
+        return response.status(200).json({ VerifiedUser: request.VerifiedUser});
+    }
+}); 
 // 
 router.post('/sendVerificationCode', async (request, response) => {
     const { SkillyeEmail } = request.body;

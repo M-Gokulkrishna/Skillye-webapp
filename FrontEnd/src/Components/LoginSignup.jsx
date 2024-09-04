@@ -1,6 +1,6 @@
 import axios from 'axios';
 import '../StyleSheets/LoginSignup.css';
-import { Form, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToast } from '../ReduxStates/ToastState.js';
@@ -54,9 +54,8 @@ const LoginSignup = () => {
                 loginUserDetails.UserPassword !== '' &&
                 EmailRegex.test(loginUserDetails.UserEmail) &&
                 PassWordRegex.test(loginUserDetails.UserPassword)) {
-                const Response = await axios.post('http://localhost:8080/Login', loginUserDetails);
+                const Response = await axios.post('http://localhost:8080/Login', loginUserDetails, { withCredentials: true });
                 if (Response?.data?.Message === 'Logged In!') {
-                    localStorage.setItem("UserAccessToken", Response.data?.SignedToken);
                     DispatchLoadingState(setLoaderState(true));
                     DispatchToastState(setToast({ State: 'Success', Message: Response.data.Message, Field: '' }));
                     setTimeout(() => {

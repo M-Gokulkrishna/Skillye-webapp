@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const userAuthRouter = require('./Routers/userAuthRouter.js');
 const userFileUpload = require('./Routers/userFileUpload.js');
 const UserDetailsRouter = require('./Routers/userDetailsRouter.js');
@@ -10,8 +11,12 @@ require('dotenv').config();
 // PORT Variable
 const PORT = process.env.PORT || 8080;
 // Imported Middlewares
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:5173'],
+    credentials: true
+}));
 app.use(express.json());
+app.use(cookieParser('secrest-key'));
 app.use('/Uploads', express.static('Uploads'));
 // Custom Middlewares
 // 

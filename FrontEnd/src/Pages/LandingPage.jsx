@@ -4,24 +4,20 @@ import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
   const NavigateTo = useNavigate();
-  const AccessToken = localStorage.getItem('UserAccessToken') || undefined;
   // 
   useEffect(() => {
-    if (AccessToken) {
-      return async () => {
-        const VerifyAccessToken = await axios.get('http://localhost:8080/VerifyToken', {
-          headers: {
-            'Authorization': `Bearer ${AccessToken}`
-          }
-        });
-        if (VerifyAccessToken.data) {
-          localStorage.setItem('UserAccessToken', VerifyAccessToken.data?.RefreshToken)
+    return async () => {
+      try {
+        const VerifyAccessToken = await axios.get('http://localhost:8080/VerifyToken', { withCredentials: true });
+        if (VerifyAccessToken?.data) {
           setTimeout(() => {
             if (VerifyAccessToken.data?.VerifiedUser?.isProfileUpdated && navigator.onLine) {
               NavigateTo('/DashBoard/ProfileCards');
             }
           }, 1010);
         }
+      } catch (error) {
+        // pass
       }
     }
   }, []);

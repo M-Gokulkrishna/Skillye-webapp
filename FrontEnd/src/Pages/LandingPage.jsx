@@ -9,15 +9,23 @@ const LandingPage = () => {
     return async () => {
       try {
         const VerifyAccessToken = await axios.get('http://localhost:8080/VerifyToken', { withCredentials: true });
-        if (VerifyAccessToken?.data) {
+        if (VerifyAccessToken?.data?.VerifiedUser) {
           setTimeout(() => {
             if (VerifyAccessToken.data?.VerifiedUser?.isProfileUpdated && navigator.onLine) {
               NavigateTo('/DashBoard/ProfileCards');
+            }
+            else{
+              NavigateTo('/LoginSignup');
             }
           }, 1010);
         }
       } catch (error) {
         // pass
+        if(error){
+          setTimeout(() => {
+            NavigateTo('/LoginSignup');
+          }, 1010);
+        }
       }
     }
   }, []);

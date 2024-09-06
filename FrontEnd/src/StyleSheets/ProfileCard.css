@@ -2,9 +2,9 @@
 .Profile-Card1 {
     position: absolute;
     display: flex;
-    top: 135px;
+    top: 140px;
     z-index: 2;
-    margin-left: 8px;
+    margin-left: 5px;
     min-height: 442px;
     border: 2px solid;
     border-radius: 18px;
@@ -255,9 +255,12 @@
         --Color2: rgba(255, 20, 145, 0.7);
     }
 
-    .Profile-Card,
+    .Profile-Card {
+        top: 185px;
+    }
+
     .Profile-Card1 {
-        top: 68px;
+        top: 65px;
     }
 
     .Profile-Image {

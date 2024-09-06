@@ -3,7 +3,7 @@ import '../StyleSheets/ProfileCards.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
-import { FaArrowLeft, FaEnvelope, FaGithub, FaGlobe, FaInstagram, FaLinkedin, FaThumbtack, FaUser } from 'react-icons/fa';
+import { FaArrowLeft, FaEnvelope, FaGithub, FaGlobe, FaInstagram, FaLinkedin, FaUser } from 'react-icons/fa';
 
 const ProfileCards = () => {
     const NavigateTo = useNavigate();
@@ -35,6 +35,9 @@ const ProfileCards = () => {
                 }
             } catch (error) {
                 // pass
+                if(error){
+                    NavigateTo('/LoginSignup');
+                }
             }
         }
     }, [])
@@ -87,12 +90,6 @@ const ProfileCards = () => {
     const AllCards = filteredUsers?.map((each, index) => (
         each.ViewProfile === 'Public' &&
         <div className='ProfileCards' key={index} onClick={() => handleCardClick(index)}>
-            {/* <div>
-                <div className='d-flex'>
-                    <FaThumbtack />
-                </div>
-                <span>Pinned</span>
-            </div> */}
             <div className='Profile-Picture'>
                 {each?.ImageFileName === '' && <FaUser />}
                 {each?.ImageFileName &&

@@ -14,25 +14,25 @@ router.post('/pdfUpload', (request, response) => {
         }
         else {
             return response.status(201).json({
-                Pdf_upload_message: 'Pdf Uploaded Successfully!',
+                File_upload_message: 'Pdf Uploaded Successfully!',
                 filePath: `/Uploads/Resumes/${request.file.filename}`,
                 fileName: request.file.filename
-            }); 
+            });
         }
     });
 });
 // Image Upload
 router.post('/ImageUpload', (request, response) => {
-    ImageUpload(request, response, err =>{
-        if(err instanceof multer.MulterError && err.code === 'LIMIT_FILE_SIZE'){
+    ImageUpload(request, response, err => {
+        if (err instanceof multer.MulterError && err.code === 'LIMIT_FILE_SIZE') {
             return response.status(400).json({ Pdf_upload_message: 'Image File size must be less than 3mb!' });
         }
-        else if(request.file === undefined){
+        else if (request.file === undefined) {
             return response.status(400).json({ Pdf_upload_message: 'No Image File Selected!' });
         }
-        else{
+        else {
             return response.status(201).json({
-                Pdf_upload_message: 'Image Uploaded Successfully!',
+                File_upload_message: 'Image Uploaded Successfully!',
                 filePath: `/Uploads/Images/${request.file.filename}`,
                 fileName: request.file.filename
             });

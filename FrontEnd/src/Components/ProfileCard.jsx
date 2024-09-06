@@ -14,12 +14,18 @@ const ProfileCard = () => {
         return async () => {
             try {
                 const VerifyAccessToken = await axios.get('http://localhost:8080/VerifyToken', { withCredentials: true });
-                if (VerifyAccessToken.data) {
+                if (VerifyAccessToken?.data?.VerifiedUser) {
                     const ViewProfileResponse = await axios.post('http://localhost:8080/ProfileDetails/ViewProfile', { UserEmail: VerifyAccessToken.data?.VerifiedUser?.Email });
                     setProfileDetails(ViewProfileResponse.data);
                 }
+                else {
+                    NavigateTo('/LoginSignup');
+                }
             } catch (error) {
                 // pass
+                if (error) {
+                    NavigateTo('/LoginSignup');
+                }
             }
         }
     }, []);
@@ -56,11 +62,11 @@ const ProfileCard = () => {
             </svg>
             <div className="Profile-Content">
                 <div className='Profile-Edit-Field'>
-                    <div onClick={() => NavigateTo('/DetailsForm')}>
+                    <div onClick={() => NavigateTo('/DetailsForm', { state: { ProfileDetails } })}>
                         <FaEdit />
                         <span style={{ fontSize: '16px', marginTop: '3px', color: 'var(--Color2)' }}>Edit</span>
                     </div>
-                    <div className='Resume-Btn' onClick={() => { FileDownload(`${ProfileDetails.PdfFileName}`) }}>
+                    <div className='Resume-Btn' onClick={() => { FileDownload(`${ProfileDetails.ResumeFileName}`) }}>
                         <a ref={AnchorTagRef}>Resume</a>
                         <span>Resume</span>
                     </div>

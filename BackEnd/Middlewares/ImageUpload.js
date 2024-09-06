@@ -4,7 +4,7 @@ const multer = require('multer');
 const ImageStorage = multer.diskStorage({
     destination: './Uploads/Images/',
     filename: (req, file, callBack) => {
-        callBack(null, file.fieldname + "_" + Date.now() + "_" + path.extname(file.originalname));
+        callBack(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
     }
 });
 // Config Image Uploader with ImageStorage Storage engine

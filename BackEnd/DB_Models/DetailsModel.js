@@ -36,7 +36,7 @@ const UserDetailSchema = new Schema({
         type: String,
         required: true
     },
-    PdfFileName: {
+    ResumeFileName: {
         type: String,
         required: true
     },

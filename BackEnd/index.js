@@ -16,7 +16,7 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.json());
-app.use(cookieParser('secrest-key'));
+app.use(cookieParser(process.env.COOKIE_SECRET_KEY));
 app.use('/Uploads', express.static('Uploads'));
 // Custom Middlewares
 // 

@@ -2,7 +2,7 @@ const Jwt = require('jsonwebtoken');
 require('dotenv').config();
 // Verify Token
 function VerifyToken(request, response, next) {
-    const SignedToken = request.signedCookies._UAID;
+    const SignedToken = request?.signedCookies?._UAID;
     if (SignedToken) {
         try {
             Jwt.verify(SignedToken, process.env.JWT_SECRET_KEY, async (err, Data) => {
@@ -14,9 +14,9 @@ function VerifyToken(request, response, next) {
         }
     }
     else {
-        response.status(401).send('Invalid/UnAuthorized Token');
+        response.sendStatus(204);
     }
     next();
 }
 // 
-module.exports = { VerifyToken}; 
+module.exports = { VerifyToken }; 

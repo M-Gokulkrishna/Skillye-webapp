@@ -3,35 +3,51 @@ const router = express.Router();
 const path = require('path');
 const userModel = require('../DB_Models/userModel.js');
 const DetailsModel = require('../DB_Models/DetailsModel.js');
+const { DeleteExistingFile } = require('../Utilities/deleteFiles.js');
 // Update Details
 router.post('/InsertAndUpdate', async (request, response) => {
-    const { DetailsFormData, FileNames } = request.body;
-    const SkillyeDetials = {
-        Name: DetailsFormData.NameField,
-        Age: DetailsFormData.AgeField,
-        Skills: DetailsFormData.SkillField,
-        Experience: DetailsFormData.ExperienceField,
-        Email: DetailsFormData.EmailField,
-        About: DetailsFormData.AboutField,
-        ViewProfile: (DetailsFormData.VisibilityField) ? 'Private' : 'Public',
-        ImageFileName: FileNames.ImageFileName,
-        PdfFileName: FileNames.ResumeFileName,
-        SocialLinks: {
-            LinkedIn: DetailsFormData.LinkedInField,
-            GitHub: DetailsFormData.GithubField,
-            Email: DetailsFormData.EmailField,
-            Website: DetailsFormData.WebsiteField,
-            Instagram: DetailsFormData.InstagramField,
+    const { AllDetails } = request.body;
+    const ExistingFileDetails = await DetailsModel.findOne({ Email: AllDetails.Email }, { ImageFileName: 1, ResumeFileName: 1 });
+    // Delete the Existing File After New File Uploaded
+    if (ExistingFileDetails && ExistingFileDetails.ImageFileName !== AllDetails.ImageFileName) {
+        const FileDeleteResponse = DeleteExistingFile('Images', ExistingFileDetails.ImageFileName);
+        if(FileDeleteResponse === 'Error: While deleting File!'){
+            return response.status(400).send('Error: While deleting your old Image File!');
         }
     }
-    if (!await DetailsModel.findOne({ Email: DetailsFormData.EmailField })) {
+    // Delete the Existing File After New File Uploaded
+    if (ExistingFileDetails && ExistingFileDetails.ResumeFileName !== AllDetails.ResumeFileName) {
+        const FileDeleteResponse = DeleteExistingFile('Resumes', ExistingFileDetails.ResumeFileName);
+        if(FileDeleteResponse === 'Error: While deleting File!'){
+            return response.status(404).send('Error: While deleting your old resume File!');
+        }
+    }
+    const SkillyeDetials = {
+        Name: AllDetails.Name,
+        Age: AllDetails.Age,
+        Skills: AllDetails.Skills,
+        Experience: AllDetails.Experience,
+        Email: AllDetails.Email,
+        About: AllDetails.About,
+        ViewProfile: AllDetails.ViewProfile,
+        ImageFileName: AllDetails.ImageFileName,
+        ResumeFileName: AllDetails.ResumeFileName,
+        SocialLinks: {
+            LinkedIn: AllDetails.LinkedIn,
+            GitHub: AllDetails.GitHub,
+            Email: AllDetails.Email,
+            Website: AllDetails.Website,
+            Instagram: AllDetails.Instagram,
+        }
+    }
+    if (!await DetailsModel.findOne({ Email: AllDetails.Email })) {
         await DetailsModel.create(SkillyeDetials);
-        await userModel.findOneAndUpdate({ Email: DetailsFormData.EmailField }, { $set: { isProfileUpdated: true } });
+        await userModel.findOneAndUpdate({ Email: AllDetails.Email }, { $set: { isProfileUpdated: true } });
         return response.status(201).send('DetailsInserted!');
     }
     else {
-        await DetailsModel.findOneAndReplace({ Email: DetailsFormData.EmailField }, SkillyeDetials);
-        await userModel.findOneAndUpdate({ Email: DetailsFormData.EmailField }, { $set: { isProfileUpdated: true } });
+        await DetailsModel.findOneAndReplace({ Email: AllDetails.Email }, SkillyeDetials);
+        await userModel.findOneAndUpdate({ Email: AllDetails.Email }, { $set: { isProfileUpdated: true } });
         return response.status(202).send('DetailsUpdated!');
     }
 });
@@ -62,7 +78,6 @@ router.post('/UsersDetailView', async (request, response) => {
 router.post('/userResumeDownload', async (request, response) => {
     const { userFileURL } = request.body;
     const FileDownloadURL = path.join(__dirname, '..', 'Uploads/Resumes', userFileURL);
-    // response.status(200).send(FileDownloadURL);
     response.download(FileDownloadURL);
 });
 module.exports = router;

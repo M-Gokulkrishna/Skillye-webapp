@@ -4,9 +4,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userModel = require('../DB_Models/userModel.js');
 const { mailTransporter } = require('../Utilities/sendMail.js');
+const { generateCode } = require('../Utilities/generateCode.js');
 const { VerifyToken } = require('../Middlewares/JwtMiddleware.js');
-const { generateCode } = require('../Middlewares/generateCode.js');
-// 
+require('dotenv').config();
 // Register New User
 router.post('/Signup', async (request, response) => {
     const { UserName, UserEmail, UserPassword } = request.body;
@@ -37,17 +37,17 @@ router.post('/Login', async (request, response) => {
             signed: true,
             secure: false,
             httpOnly: true,
-            maxAge: 1000 * 60 * 60
-        })
+            maxAge: eval(process.env.COOKIE_EXPIRE_TIME)
+        });
         return response.status(200).json({
             isProfileUpdated: getUser?.isProfileUpdated,
             Message: "Logged In!"
         });
     }
 });
-// Logout 
-router.get('/Logout', async(request, response)=>{
-    if(request.signedCookies._UAID){
+// Logout Existing User
+router.get('/Logout', async (request, response) => {
+    if (request?.signedCookies?._UAID) {
         response.clearCookie('_UAID', {
             httpOnly: true,
             signed: true,
@@ -55,14 +55,24 @@ router.get('/Logout', async(request, response)=>{
         });
         return response.status(200).send('Logout Successfully!');
     }
-    return response.status(400).send('UnAuthorized user Token!');
+    return response.status(400).send('Unauthorized user Token!');
 });
 // Verify Jwt Token Access (Protected Route)
 router.get('/VerifyToken', VerifyToken, async (request, response) => {
-    if(request.signedCookies._UAID){
-        return response.status(200).json({ VerifiedUser: request.VerifiedUser});
+    if (request?.signedCookies?._UAID) {
+        if (!request.VerifiedUser.isProfileUpdated) {
+            const getUser = await userModel.findOne({ Email: request.VerifiedUser.Email });
+            const RefreshJwtToken = jwt.sign({ Name: getUser.Name, Email: getUser.Email, isProfileUpdated: getUser.isProfileUpdated }, process.env.JWT_SECRET_KEY);
+            response.cookie('_UAID', RefreshJwtToken, {
+                signed: true,
+                secure: false,
+                httpOnly: true,
+                maxAge: eval(process.env.COOKIE_EXPIRE_TIME)
+            });
+        }
+        return response.status(200).json({ VerifiedUser: request.VerifiedUser });
     }
-}); 
+});
 // 
 router.post('/sendVerificationCode', async (request, response) => {
     const { SkillyeEmail } = request.body;

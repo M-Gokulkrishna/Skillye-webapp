@@ -28,17 +28,19 @@
 }
 
 .Input-Section {
+    position: relative;
     width: min(450px, 90%);
     display: flex;
     gap: 12px;
     padding: 20px 10px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px;
+    border-radius: 8px;
     min-width: fit-content;
     flex-direction: column;
-    backdrop-filter: blur(5px);
     justify-content: space-around;
     background-color: rgba(230, 230, 250, 0.5);
+    border-left: 3px solid rgba(0, 0, 139, 0.64);
+    border-right: 3px solid rgba(0, 0, 139, 0.64);
+    border-bottom: 3px solid rgba(0, 0, 139, 0.64);
 }
 
 .Input-Section:nth-child(even) {
@@ -47,12 +49,6 @@
 
 .Input-Section:nth-child(odd) {
     animation: Input-section-fade-right 1s ease 1;
-}
-
-.Input-Section>div {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
 }
 
 .Section3>span,
@@ -83,10 +79,11 @@ input[type="password"] {
     border: none;
     outline: none;
     font-weight: bold;
-    border-radius: 10px;
-    box-shadow: 0 0 5px;
+    border-radius: 6px;
     padding-inline-start: 12px;
-    background-color: lavenderblush;
+    border-left: 2.2px solid var(--Color3);
+    border-right: 2.2px solid var(--Color3);
+    background-color: rgba(255, 240, 245, 0.9);
 }
 
 .Input-Section>textarea {
@@ -95,10 +92,11 @@ input[type="password"] {
     border: none;
     outline: none;
     font-weight: bold;
-    border-radius: 10px;
-    box-shadow: 0 0 5px;
+    border-radius: 8px;
     padding-inline-start: 12px;
-    background-color: lavenderblush;
+    border-top: 3px solid var(--Color3);
+    border-bottom: 3px solid var(--Color3);
+    background-color: rgba(255, 240, 245, 0.9);
 }
 
 input[type="file"] {
@@ -107,14 +105,19 @@ input[type="file"] {
 
 .File-Label-Container {
     display: flex;
+    gap: 12px;
     width: 100%;
-    height: 120px;
+    height: 100%;
+    font-size: 14px;
+    justify-content: space-around;
 }
 
 .File-Label-Container>label {
     display: flex;
-    width: 48%;
-    height: 100%;
+    padding: 4px;
+    width: 142px;
+    height: 140px;
+    overflow: hidden;
     font-weight: bold;
     border-radius: 8px;
     text-align: center;
@@ -122,7 +125,20 @@ input[type="file"] {
     color: var(--Color3);
     justify-content: center;
     box-shadow: 0 0 4px black;
-    background-color: rgba(255, 240, 245, 0.5);
+    background: radial-gradient(rgba(255, 240, 245, 0.5), rgba(245, 222, 179, 0.6));
+}
+
+.FileName-Field {
+    position: relative;
+    color: #ff3366;
+    transform: scaleY(1.2);
+    overflow-wrap: anywhere;
+}
+
+.Form-Btns-Container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 
 input[type="submit"] {
@@ -154,11 +170,11 @@ input[type="submit"] {
     color: var(--Color2);
 }
 
-#VisibilityField {
+#ViewProfile {
     display: none;
 }
 
-#VisibilityField~label {
+#ViewProfile~label {
     position: relative;
     cursor: pointer;
     width: 50px;
@@ -171,7 +187,7 @@ input[type="submit"] {
     background-color: rgba(240, 248, 255, 0.5);
 }
 
-#VisibilityField~label::after {
+#ViewProfile~label::after {
     position: absolute;
     content: '';
     top: 0;
@@ -185,7 +201,7 @@ input[type="submit"] {
     box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
 }
 
-#VisibilityField:checked~label::after {
+#ViewProfile:checked~label::after {
     left: calc(100% - 25px);
     background-color: var(--Color2);
 }

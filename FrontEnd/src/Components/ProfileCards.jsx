@@ -3,7 +3,7 @@ import '../StyleSheets/ProfileCards.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
-import { FaArrowLeft, FaEnvelope, FaGithub, FaGlobe, FaInstagram, FaLinkedin, FaUser } from 'react-icons/fa';
+import { FaArrowLeft, FaEnvelope, FaGithub, FaGlobe, FaInstagram, FaLinkedin, FaThumbtack, FaUser } from 'react-icons/fa';
 
 const ProfileCards = () => {
     const NavigateTo = useNavigate();
@@ -35,7 +35,7 @@ const ProfileCards = () => {
                 }
             } catch (error) {
                 // pass
-                if(error){
+                if (error) {
                     NavigateTo('/LoginSignup');
                 }
             }
@@ -131,7 +131,7 @@ const ProfileCards = () => {
                     <div className='Back-ProfileCards' onClick={() => setDetailCardView(false)}>
                         <FaArrowLeft />
                     </div>
-                    <div className='Resume-Btn' onClick={() => FileDownload(`${ProfileDetails.PdfFileName}`)}>
+                    <div className='Resume-Btn' onClick={() => FileDownload(`${ProfileDetails.ResumeFileName}`)}>
                         <a ref={AnchorTagRef}>Resume</a>
                         <span>Resume</span>
                     </div>
@@ -194,7 +194,15 @@ const ProfileCards = () => {
                 </div>
                 <div className="About-Field">
                     <div>
-                        <span className='fw-bold Text-Header'>About (Tamil Nadu, India)</span>
+                        <span className='fw-bold Text-Header'>About</span>
+                        <br />
+                        <span className='fw-bold' style={{ color: 'deeppink' }}>
+                            ({!ProfileDetails?.LocationDetails?.State && "ABC"}
+                            {ProfileDetails?.LocationDetails?.State && ProfileDetails?.LocationDetails?.State},
+                            &nbsp;
+                            {!ProfileDetails?.LocationDetails?.Country && " WXYZ"}
+                            {ProfileDetails?.LocationDetails?.Country && ProfileDetails?.LocationDetails?.Country}).
+                        </span>
                         <br />
                         <p>{ProfileDetails?.About}</p>
                     </div>

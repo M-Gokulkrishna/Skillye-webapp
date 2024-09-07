@@ -32,6 +32,10 @@ router.post('/InsertAndUpdate', async (request, response) => {
         ViewProfile: AllDetails.ViewProfile,
         ImageFileName: AllDetails.ImageFileName,
         ResumeFileName: AllDetails.ResumeFileName,
+        LocationDetails: {
+            State: AllDetails.State,
+            Country: AllDetails.Country
+        },
         SocialLinks: {
             LinkedIn: AllDetails.LinkedIn,
             GitHub: AllDetails.GitHub,

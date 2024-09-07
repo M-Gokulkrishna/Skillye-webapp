@@ -94,14 +94,14 @@
     top: 100%;
     width: 100%;
     min-height: 160px;
+    border-radius: 6%;
     align-items: center;
     transition: all 0.4s;
     transform-origin: top;
     flex-direction: column;
     backdrop-filter: blur(4px);
+    border: 2px solid deeppink;
     justify-content: space-around;
-    border: 1.2px solid deeppink;
-    border-radius: 2px 2px 6px 6px;
     background-color: rgba(240, 248, 255, 0.9);
 }
 
@@ -109,11 +109,11 @@
     cursor: pointer;
     width: 80%;
     padding: 6px 0;
+    border: 2px solid;
     border-radius: 8px;
     text-align: center;
     color: var(--Color1);
     backdrop-filter: blur(2px);
-    box-shadow: 0 0 2px var(--Color3);
 }
 
 .DropDown-Filter:active,

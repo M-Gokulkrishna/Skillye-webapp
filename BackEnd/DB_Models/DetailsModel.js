@@ -40,6 +40,16 @@ const UserDetailSchema = new Schema({
         type: String,
         required: true
     },
+    LocationDetails: {
+        State: {
+            type: String,
+            required: true
+        },
+        Country: {
+            type: String,
+            required: true
+        }
+    },
     SocialLinks: {
         LinkedIn: {
             type: String,

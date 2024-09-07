@@ -1,6 +1,6 @@
 import axios from 'axios';
 import '../StyleSheets/userDetailsCard.css';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaTimes } from 'react-icons/fa';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToast } from '../ReduxStates/ToastState.js';
@@ -18,6 +18,8 @@ const InitialFormDetails = {
     Website: '',
     Instagram: '',
     About: '',
+    State: '',
+    Country: '',
     ViewProfile: 'Public'
 }
 // 
@@ -40,10 +42,10 @@ const DetailsForm = () => {
     const ThisLocation = useLocation();
     useEffect(() => {
         if (ThisLocation?.state?.ProfileDetails) {
-            const { ImageFileName, ResumeFileName, SocialLinks, ...newDetails } = ThisLocation?.state?.ProfileDetails;
+            const { ImageFileName, ResumeFileName, SocialLinks, LocationDetails, ...newDetails } = ThisLocation?.state?.ProfileDetails;
             FileNames.ImageFileName = ImageFileName;
             FileNames.ResumeFileName = ResumeFileName;
-            setDetailsFormData({ ...newDetails, ...SocialLinks });
+            setDetailsFormData({ ...newDetails, ...SocialLinks, ...LocationDetails });
         }
     }, [ThisLocation?.state?.ProfileDetails]);
     // 
@@ -153,6 +155,16 @@ const DetailsForm = () => {
                 setFormCounter(4);
                 return
             }
+            else if (DetailsFormData.State === '') {
+                DispatchToastState(setToast({ State: 'Error', Message: 'State Field is Required!', Field: 'State-DetailsForm' }));
+                setFormCounter(5);
+                return
+            }
+            else if (DetailsFormData.Country === '') {
+                DispatchToastState(setToast({ State: 'Error', Message: 'Country Field is Required!', Field: 'Country-DetailsForm' }));
+                setFormCounter(5);
+                return
+            }
             else if (DetailsFormData.About === '') {
                 return DispatchToastState(setToast({ State: 'Error', Message: 'About Field is Required!', Field: 'About-DetailsForm' }));
             }
@@ -251,28 +263,47 @@ const DetailsForm = () => {
                     <span>File Upload</span>
                     <div className='File-Label-Container'>
                         <label htmlFor="ImageField" style={(showErrorResponse === 'Image-DetailsForm') ? { border: '2.2px solid #ff3366' } : null}>
-                            {
-                                !ImageFile?.name && <span>
-                                    Upload Your <br /> Image
-                                </span>
-                            }
-                            {
-                                ImageFile && <span className='FileName-Field'>
-                                    {ImageFile?.name}
-                                </span>
-                            }
+                            <span className='Files-content-conatiner'>
+                                {
+                                    (!FileNames?.ImageFileName && !ImageFile?.name) &&
+                                    <span>
+                                        Upload your <br /> Image
+                                    </span>
+                                }
+                                {
+                                    (FileNames?.ImageFileName || ImageFile?.name) &&
+                                    <span>
+                                        <span className='position-absolute top-0 end-0 me-1 fs-2'>
+                                            <FaTimes />
+                                        </span>
+                                        <span className='FileName-Field'>
+                                            {ImageFile?.name && ImageFile?.name}
+                                            {FileNames?.ImageFileName && FileNames?.ImageFileName}
+                                        </span>
+                                    </span>
+                                }
+                            </span>
                         </label>
                         <label htmlFor="PdfField" style={(showErrorResponse === 'Pdf-DetailsForm') ? { border: '2.2px solid #ff3366' } : null}>
-                            {
-                                !PdfFile?.name && <span>
-                                    Upload Your <br /> Resume
-                                </span>
-                            }
-                            {
-                                PdfFile && <span className='FileName-Field'>
-                                    {PdfFile?.name}
-                                </span>
-                            }
+                            <span className='Files-content-conatiner'>
+                                {
+                                    (!FileNames?.ResumeFileName && !PdfFile?.name) && <span>
+                                        Upload your <br /> Resume
+                                    </span>
+                                }
+                                {
+                                    (FileNames?.ResumeFileName || PdfFile?.name) &&
+                                    <span>
+                                        <span className='position-absolute top-0 end-0 me-1 fs-2'>
+                                            <FaTimes />
+                                        </span>
+                                        <span className='FileName-Field'>
+                                            {PdfFile?.name && PdfFile?.name}
+                                            {FileNames?.ResumeFileName && FileNames?.ResumeFileName}
+                                        </span>
+                                    </span>
+                                }
+                            </span>
                         </label>
                     </div>
                     <input type="file" name="ImageField" accept='.jpeg, .jpg, .png' id="ImageField" onChange={(e) => getImage(e)} />
@@ -289,11 +320,11 @@ const DetailsForm = () => {
                 </div>
                 <div className={`Input-Section Section4 social-Links ${FormCounter === 4 ? 'section-active' : ''}`}>
                     <span>Social Links</span>
-                    <input type="email" name="Email" id="Email" placeholder='Enter Email' value={DetailsFormData.Email} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Email-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} />
-                    <input type="text" name="LinkedIn" id="LinkedIn" placeholder='Enter LinkedIn' value={DetailsFormData.LinkedIn} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'LinkedIn-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} />
-                    <input type="text" name="GitHub" id="GitHub" placeholder='Enter GitHub' value={DetailsFormData.GitHub} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'GitHub-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} />
-                    <input type="text" name="Website" id="Website" placeholder='Enter Website' value={DetailsFormData.Website} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Website-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} />
-                    <input type="text" name="Instagram" id="Instagram" placeholder='Enter Instagram' value={DetailsFormData.Instagram} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Instagram-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} />
+                    <input type="email" name="Email" id="Email" placeholder='Enter Email' value={DetailsFormData.Email} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Email-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} title=' Eg: example@mail.com ' />
+                    <input type="text" name="LinkedIn" id="LinkedIn" placeholder='Enter LinkedIn' value={DetailsFormData.LinkedIn} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'LinkedIn-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} title=' Eg: https://example.com ' />
+                    <input type="text" name="GitHub" id="GitHub" placeholder='Enter GitHub' value={DetailsFormData.GitHub} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'GitHub-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} title=' Eg: https://example.com ' />
+                    <input type="text" name="Website" id="Website" placeholder='Enter Website' value={DetailsFormData.Website} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Website-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} title=' Eg: https://example.com ' />
+                    <input type="text" name="Instagram" id="Instagram" placeholder='Enter Instagram' value={DetailsFormData.Instagram} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Instagram-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} title=' Eg: https://example.com ' />
                     {
                         ScreenWidth <= 820 &&
                         <>
@@ -304,9 +335,29 @@ const DetailsForm = () => {
                         </>
                     }
                 </div>
-                <div className={`Input-Section Section5 ${FormCounter === 5 ? 'section-active' : ''}`}>
-                    <label htmlFor="About">About</label>
+                <div className={`Input-Section locationField ${FormCounter === 5 ? 'section-active' : ''}`}>
+                    <label className='position-absolute top-0 align-self-center fs-5 text-decoration-underline'>Location</label>
                     <div>
+                        <label htmlFor="State">State</label>
+                        <input type="text" name="State" id="State" className='mt-3' placeholder='Enter your State' value={DetailsFormData.State} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'State-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} title=' Eg: New Delhi ' />
+                    </div>
+                    <div>
+                        <label htmlFor="Country">Country</label>
+                        <input type="text" name="Country" id="Country" className='mt-3' placeholder='Enter your Country' value={DetailsFormData.Country} onChange={(e) => handleFormInput(e)} style={(showErrorResponse === 'Country-DetailsForm') ? { border: '2.2px solid #ff3366' } : null} title=' Eg: India ' />
+                    </div>
+                    {
+                        ScreenWidth <= 820 &&
+                        <>
+                            <div className='Form-Btns-Container'>
+                                <div className='Form-Btns bg-danger text-light shadow' onClick={() => setFormCounter(pc => pc - 1)}>Back</div>
+                                <div className='Form-Btns bg-primary text-light shadow' onClick={() => setFormCounter(pc => pc + 1)}>Continue</div>
+                            </div>
+                        </>
+                    }
+                </div>
+                <div className={`Input-Section Section5 ${FormCounter === 6 ? 'section-active' : ''}`}>
+                    <label htmlFor="About">About</label>
+                    <div className='d-flex justify-content-between'>
                         <span className='VisibilityBtn-text'>Do you want to make your profile private</span>
                         <input type="checkbox" name="ViewProfile" id="ViewProfile" onChange={(e) => handleVisibilityInput(e)} defaultChecked={ThisLocation?.state?.ProfileDetails?.ViewProfile === 'Private'} />
                         <span className='VisibilityFlag-text'>{(DetailsFormData.ViewProfile === 'Private') ? "On" : "Off"}</span>

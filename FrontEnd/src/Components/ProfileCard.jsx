@@ -107,7 +107,7 @@ const ProfileCard = () => {
                         <span className='fw-bold Text-Header'>Social Links</span>
                         <div className='Social-Icons'>
                             <FaLinkedin />
-                            <a href={`https://${ProfileDetails?.SocialLinks?.LinkedIn}`} target="_blank" rel="noopener noreferrer"></a>
+                            <a href={`${ProfileDetails?.SocialLinks?.LinkedIn}`} target="_blank" rel="noopener noreferrer"></a>
                         </div>
                         <div className='Social-Icons'>
                             <FaGithub />
@@ -115,7 +115,7 @@ const ProfileCard = () => {
                         </div>
                         <div className='Social-Icons'>
                             <FaEnvelope />
-                            <a href={`https://${ProfileDetails?.SocialLinks?.Email}`} target="_blank" rel="noopener noreferrer"></a>
+                            <a href={`${ProfileDetails?.SocialLinks?.Email}`} target="_blank" rel="noopener noreferrer"></a>
                         </div>
                         <div className='Social-Icons'>
                             <FaGlobe />
@@ -129,7 +129,15 @@ const ProfileCard = () => {
                 </div>
                 <div className="About-Field">
                     <div>
-                        <span className='fw-bold Text-Header'>About (Tamil Nadu, India)</span>
+                        <span className='fw-bold Text-Header'>About</span>
+                        <br />
+                        <span className='fw-bold' style={{ color: 'deeppink' }}>
+                            ({!ProfileDetails?.LocationDetails?.State && "ABC"}
+                            {ProfileDetails?.LocationDetails?.State && ProfileDetails?.LocationDetails?.State},
+                            &nbsp;
+                            {!ProfileDetails?.LocationDetails?.Country && " WXYZ"}
+                            {ProfileDetails?.LocationDetails?.Country && ProfileDetails?.LocationDetails?.Country}).
+                        </span>
                         <br />
                         <p>{ProfileDetails?.About}</p>
                     </div>
